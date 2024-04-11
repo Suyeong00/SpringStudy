@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link href="../css/bootstrap.min.css"
+          th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 560px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>로그인</h2>
+    </div>
+    <form th:action
+          method="post">
+        <div>
+            <label for="userName">아이디</label>
+            <input type="text" id="userName" name="userName" class="formcontrol" placeholder="아이디를 입력하세요">
+        </div>
+        <div>
+            <label for="passWord">패스워드</label>
+            <input type="text" id="passWord" name="passWord" class="formcontrol" placeholder="패스워드를 입력하세요">
+        </div>
+        <p>기본 ID : admin   기본 PW : 1234</p>
+        <p th:text="${status}"></p>
+
+        <hr class="my-4">
+        <div class="row">
+            <div class="col">
+                <button class="w-100 btn btn-primary btn-lg" type="submit">로그인</button>
+            </div>
+            <div class="col">
+                <button class="w-100 btn btn-secondary btn-lg"
+                        th:onclick="|location.href='@{/basic/signUp}'|"
+                        type="button">회원가입 하러가기</button>
+            </div>
+        </div>
+    </form>
+</div> <!-- /container -->
+</body>
+</html>
