@@ -1,6 +1,8 @@
 package skkud.hw1.post;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import skkud.hw1.user.UserRepository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,6 +36,10 @@ public class PostRepository {
         Post findPost = findById(postId);
         findPost.setTitle(updatePost.getTitle());
         findPost.setContent(updatePost.getContent());
+    }
+
+    public void remove(Long postId) {
+        postMap.remove(postId);
     }
 
     public void clearMap() { // Test를 위함

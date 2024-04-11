@@ -14,4 +14,6 @@ public class Post {
         this.content = content;
         this.userName = userName;
     }
+
+
 }

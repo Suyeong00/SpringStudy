@@ -8,22 +8,13 @@
 <body>
 <div class="container" style="max-width: 600px">
     <div class="py-5 text-center">
-        <h2>게시판</h2>
+        <h2>내가 쓴 글 목록</h2>
     </div>
-    <p th:text="|현재 접속중인 ID는 ${userName}|"></p>
     <div class="row">
         <div class="col">
             <button class="btn btn-primary float-end"
-                    th:onclick="|location.href='@{/basic/posts/add}'|"
-                    type="button">글쓰기
-            </button>
-            <button class="btn btn-primary float-end"
-                    th:onclick="|location.href='@{/basic/login}'|"
-                    type="button">로그인 정보 변경
-            </button>
-            <button class="btn btn-primary float-end"
-                    th:onclick="|location.href='@{/basic/posts/myposts}'|"
-                    type="button">내가 쓴 글 목록
+                    th:onclick="|location.href='@{/basic/posts}'|"
+                    type="button">뒤로가기
             </button>
         </div>
     </div>

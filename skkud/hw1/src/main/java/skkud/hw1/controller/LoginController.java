@@ -28,7 +28,10 @@ public class LoginController {
     public String login(Model model,
                         @RequestParam String userName,
                         @RequestParam String passWord) {
-        if(userRepository.login(userName, passWord)) return "redirect:/basic/posts";
+        if(userRepository.login(userName, passWord)) {
+            userRepository.setCurrentUser(userName);
+            return "redirect:/basic/posts";
+        }
         //loginFails++;
         model.addAttribute("status", "로그인 실패");
         //model.addAttribute("loginFailes", loginFails);
