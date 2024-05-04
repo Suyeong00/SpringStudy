@@ -34,7 +34,7 @@ public class PostController {
 
     @PostConstruct
     public void init() {
-        userRepository.setCurrentUser("admin");
+        userRepository.changeCurrentUser("admin");
         String userName = "admin";
         Post post1 = new Post("post1", "111", userName);
         Post post2 = new Post("post2", "222", userName);
@@ -66,7 +66,6 @@ public class PostController {
         String userName = userRepository.getCurrentUser();
         Post post = new Post(title, content, userName);
         postRepository.update(postId, post);
-        //return "/basic/posts/{postId}"; << 왜 이렇게 하면 안되지?
         return "redirect:/basic/posts/{postId}";
     }
 
@@ -86,9 +85,6 @@ public class PostController {
         userRepository.addUserPost(userName, post); // userRepository에 게시글 저장
         
         model.addAttribute("post", post);
-        // ModelAttribute쓰면 더 쉽게 가능
-        // Q) ModelAttribute는 객체를 생성하고 요청 파라미터의 값을 프로퍼티 접근법으로 입력해준다고 했다
-        // 그러면 해당 객체의 필드를 프로퍼티 접근이 가능하도록 set메소드를 열어줘야 하는건가?
         //return "basic/post";
         return "redirect:/basic/posts/" + post.getId(); // PRG 패턴
     }
@@ -97,12 +93,7 @@ public class PostController {
     public String myPosts(Model model) {
         String userName = userRepository.getCurrentUser();
         User user = userRepository.findByUserName(userName);
-        Set<Long> postList = user.getPostList();
-        List<Post> posts = new ArrayList<>();
-        for (Long l : postList) {
-            Post post = postRepository.findById(l);
-            posts.add(post);
-        }
+        List<Post> posts = user.deliverUserPosts();
         model.addAttribute("posts", posts);
         return "basic/myposts";
     }
@@ -111,7 +102,8 @@ public class PostController {
     public String deletePost(@PathVariable Long postId) {
         System.out.println("PostController.deletePost");
         String userName = userRepository.getCurrentUser();
-        userRepository.removeUserPost(userName, postId);
+        Post post = postRepository.findById(postId);
+        userRepository.removeUserPost(userName, post);
         postRepository.remove(postId);
 
         return "redirect:/basic/posts";

@@ -34,8 +34,7 @@ public class PostRepository {
 
     public void update(Long postId, Post updatePost) {
         Post findPost = findById(postId);
-        findPost.setTitle(updatePost.getTitle());
-        findPost.setContent(updatePost.getContent());
+        findPost.changePost(updatePost);
     }
 
     public void remove(Long postId) {
