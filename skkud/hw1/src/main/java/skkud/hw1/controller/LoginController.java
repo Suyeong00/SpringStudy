@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import skkud.hw1.user.UserRepository;
 
 @Controller
-@RequestMapping("/basic/login")
+@RequestMapping("/basic/login") // api prefix 설정은 안좋을 수도 있다
 @RequiredArgsConstructor // final이 붙은 대상으로 생성자를 만들어줌(생성자 주입)
 public class LoginController {
     private final UserRepository userRepository;
@@ -29,7 +29,7 @@ public class LoginController {
                         @RequestParam String userName,
                         @RequestParam String passWord) {
         if(userRepository.login(userName, passWord)) {
-            userRepository.setCurrentUser(userName);
+            userRepository.changeCurrentUser(userName);
             return "redirect:/basic/posts";
         }
         //loginFails++;
